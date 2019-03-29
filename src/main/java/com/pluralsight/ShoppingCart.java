@@ -22,6 +22,21 @@ public class ShoppingCart {
   cartItems.add(cartItem);
  }
 
+ /*********************************************************************************/
+ /*                                                                               */
+ /* 20190329 added deleteCartItem                                                 */
+ /*                                                                               */
+ /*********************************************************************************/
+ 
+ public void deleteCartItem(int index) {
+	 try { 
+	 cartItems.remove(index);
+	 } catch (IndexOutOfBoundsException e) {
+		 e.printStackTrace();
+	 }
+ }
+ 
+ 
  public CartItem getCartItem(int iItemIndex) {
   CartItem cartItem = null;
   if(cartItems.size()>iItemIndex) {
