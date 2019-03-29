@@ -42,7 +42,7 @@ public class CartController extends HttpServlet {
 		// Do different things depending on the action (or path requested)
 		/***********************************************************************/
 		/*                                                                     */
-		/* 20190329 added the deleteFromCart method                            */
+		/* 20190329 added the deleteFromCart and updateCartItem methods        */
 		/*                                                                     */
 		/***********************************************************************/
 		try {
@@ -52,6 +52,9 @@ public class CartController extends HttpServlet {
 					break;		 
 				case "/delete":
 					deleteFromCart(request, response);
+					break;
+				case "/update":
+					updateCart(request, response);
 					break;
 				default:
 					break;
@@ -66,7 +69,6 @@ public class CartController extends HttpServlet {
 
 	
 	
-	
   private void deleteFromCart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	  
@@ -77,7 +79,14 @@ public class CartController extends HttpServlet {
 	  	  
   }
 	
-	
+  private void updateCart(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	  HttpSession session = request.getSession();  	  
+	  int index = Integer.parseInt(request.getParameter("index"));
+	  int quantity = Integer.parseInt(request.getParameter("quantity"));
+	  ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");
+	  cart.updateCartItem(index, quantity);
+}
 
 	
   protected void addToCart(HttpServletRequest request, HttpServletResponse response)

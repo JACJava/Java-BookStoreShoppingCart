@@ -24,17 +24,28 @@ public class ShoppingCart {
 
  /*********************************************************************************/
  /*                                                                               */
- /* 20190329 added deleteCartItem                                                 */
+ /* 20190329 added deleteCartItem and updateCartItem                              */
  /*                                                                               */
  /*********************************************************************************/
  
  public void deleteCartItem(int index) {
 	 try { 
-	 cartItems.remove(index);
+		 cartItems.remove(index);
 	 } catch (IndexOutOfBoundsException e) {
 		 e.printStackTrace();
 	 }
  }
+ 
+ public void updateCartItem(int index, int quantity) {
+	 try { 
+		 CartItem cartItem = cartItems.get(index);
+		 cartItem.setQuantity(quantity);
+		 
+	 } catch (IndexOutOfBoundsException e) {
+		 e.printStackTrace();
+	 }
+ }
+ 
  
  
  public CartItem getCartItem(int iItemIndex) {
