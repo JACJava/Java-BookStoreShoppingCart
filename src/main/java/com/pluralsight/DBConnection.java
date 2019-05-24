@@ -8,8 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBConnection {
+  
   private Connection jdbcConnection;
-
+  private String jdbcURL = "jdbc:mysql://localhost:3306/book_store";
+  private String jdbcUsername = "root";
+  private String jdbcPassword = "root";
+  
   public DBConnection() {
     connect();
   }
@@ -18,18 +22,37 @@ public class DBConnection {
     return jdbcConnection;
   }
 
-  public void connect()  {
-    try {
-      Class.forName("org.sqlite.JDBC");
-      jdbcConnection = DriverManager.getConnection("jdbc:sqlite:book_store.db");
-      System.out.println("Opened database successfully");
-
-      createTableIfNotExists();
-    } catch ( Exception e ) {
-     System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-     System.exit(0);
-   }
- }
+//  public void connect()  {
+//    try {
+//      Class.forName("org.sqlite.JDBC");
+//      jdbcConnection = DriverManager.getConnection("jdbc:sqlite:book_store.db");
+//      System.out.println("Opened database successfully");
+//
+//      createTableIfNotExists();
+//    } catch ( Exception e ) {
+//     System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+//     System.exit(0);
+//   }
+// }
+//  
+  
+ 
+  public void connect() {
+		try {
+			if (jdbcConnection == null || jdbcConnection.isClosed()) {
+				
+				Class.forName("com.mysql.jdbc.Driver");
+				
+				jdbcConnection = DriverManager.getConnection(jdbcURL, jdbcUsername, jdbcPassword);
+				
+				System.out.println("MySQL Connection Established");		
+			}		
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+  
+ 
 
  private void createTableIfNotExists() {
    try {

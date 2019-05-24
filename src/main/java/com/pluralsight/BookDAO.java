@@ -22,7 +22,6 @@ public class BookDAO {
       try {
         PreparedStatement statement = jdbcConnection.prepareStatement(sql);
         statement.setInt(1, id);
-
         ResultSet resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
@@ -83,11 +82,11 @@ public class BookDAO {
 	        statement.close();
 	        return rowInserted;
         } catch (SQLException e) {
-        		e.printStackTrace();
-        }
-
-        return false;
+    		e.printStackTrace();
     }
+
+    return false;
+}
 
     public void deleteBook(int id) {
       String sql = "DELETE FROM book WHERE id = ?";
